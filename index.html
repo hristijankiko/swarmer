@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <script src="src/readfile.js"></script>
 </head>
 
 <body>
-    <h1>Hello World!</h1>
-    We are using node
-    <script>document.write(process.versions.node)</script>, Chrome
-    <script>document.write(process.versions.chrome)</script>, and Electron
-    <script>document.write(process.versions.electron)</script>.
+    <h1>Swarmer</h1>
+	<!--<form>-->
+	<div>
+		<input type="file" name="file" value="Open File"
+		accept="application/x-bittorrent" multiple required />
+		<input type="button" value="Submit" onclick="read_file(this.previousElementSibling.files)" />
+	</div>
+	<p></p>
+	<table>
+
+	</table>
 </body>
 
 </html>
