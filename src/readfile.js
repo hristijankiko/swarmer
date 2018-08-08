@@ -1,6 +1,6 @@
-function read_file(a) {
+function read_file(filelist) {
 
-  console.log(a);
+  console.log(filelist);
   // document.querySelector("p").innerHTML = a;
 
 }
