@@ -1,9 +1,12 @@
 import ITheme from "../themes/ITheme";
 
-const styles = (theme: ITheme) => ({
+export interface IStyles {
+    container: any;
+}
+
+const styles = (theme: ITheme): IStyles => ({
     container: {
-        padding: 40,
-        background: theme.background3,
+        background: theme.background4,
         textAlign: "left",
         color: "#FFF",
         height: "100%",
