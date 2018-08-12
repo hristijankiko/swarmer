@@ -1,6 +1,6 @@
 import * as React from "react";
 import injectSheets from "react-jss";
-import AddButton from "./AddButton";
+import AddButton from "./addButton";
 import StartButton from "./startButton";
 import StopButton from "./stopButton";
 import styles, { IStyles } from "./styles";
