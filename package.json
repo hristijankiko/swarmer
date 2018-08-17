@@ -16,7 +16,12 @@
     "url": "git+https://github.com/hristijankiko/swarmer.git"
   },
   "keywords": [
-    "BitTorrent"
+    "BitTorrent",
+    "Torrent",
+    "BitTorrent Client",
+    "Electron",
+    "Node.js",
+    "React"
   ],
   "author": "Ricky Jon, James O'Neil, Hristijan Gjorgjievski",
   "license": "ISC",
