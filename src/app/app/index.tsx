@@ -2,6 +2,7 @@ import * as React from "react";
 import injectSheet from "react-jss";
 import ActionBar from "./actionBar";
 import styles, { IStyles } from "./styles";
+import TorrentList from "./torrentList";
 
 class Component extends React.Component<{ classes: IStyles }, {}> {
     public render() {
@@ -10,7 +11,7 @@ class Component extends React.Component<{ classes: IStyles }, {}> {
         return (
             <div className={classes.container}>
                 <ActionBar />
-                <h1>Swarmer</h1>
+                <TorrentList />
             </div>
         );
     }
