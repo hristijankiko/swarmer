@@ -8,7 +8,7 @@ const styles = (theme: ITheme): IStyles => ({
     container: {
         background: theme.background4,
         textAlign: "left",
-        color: "#FFF",
+        color: theme.color,
         height: "100%",
         boxSizing: "border-box",
         fontFamily: "Arial",

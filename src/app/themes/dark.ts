@@ -14,7 +14,7 @@ const darkTheme: ITheme = {
     background11: "#908fa3",
     background12: "#9e9daf",
     background13: "#acabba",
-    color: "#FFF",
+    color: "#c7c7d1",
 };
 
 export default darkTheme;
