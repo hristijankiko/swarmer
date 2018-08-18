@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from "electron";
+import "./torrentManager";
 
 let win: BrowserWindow;
 
