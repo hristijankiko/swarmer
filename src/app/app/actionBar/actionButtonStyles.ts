@@ -2,6 +2,7 @@ import ITheme from "../../themes/ITheme";
 
 export interface IStyles {
     image: any;
+    hidden: any;
 }
 
 const styles = (theme: ITheme): IStyles => ({
@@ -12,6 +13,9 @@ const styles = (theme: ITheme): IStyles => ({
         margin: "0 5px",
         fill: "#FFF",
         cursor: "pointer",
+    },
+    hidden: {
+        display: "none",
     },
 });
 

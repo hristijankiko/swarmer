@@ -1,14 +1,47 @@
+import { Event } from "electron";
+import { ipcRenderer } from "electron";
 import * as React from "react";
 import injectSheets from "react-jss";
+import IOpenTorrentSuccessEvent from "../../../common/events/IOpenTorrentSuccessEvent";
+import { OPEN_TORRENT_SUCCESS } from "../../../common/events/types";
 import styles, { IStyles } from "./styles";
 
 interface ITorrentListProps {
     classes: IStyles;
 }
 
-class Component extends React.Component<ITorrentListProps, {}> {
+interface ITorrentListState {
+    torrents: ITorrentListItem[];
+}
+
+interface ITorrentListItem {
+    name: string;
+    size: string;
+    status: string;
+    progress: number;
+    down: number;
+    up: number;
+    eta: string;
+    seeds: number;
+    peers: number;
+}
+
+class Component extends React.Component<ITorrentListProps, ITorrentListState> {
+    constructor(props: ITorrentListProps) {
+        super(props);
+
+        this.state = {
+            torrents: [],
+        };
+    }
+
+    public componentWillMount() {
+        ipcRenderer.on(OPEN_TORRENT_SUCCESS, this.onOpenTorrentSuccess);
+    }
+
     public render() {
         const { classes } = this.props;
+        const { torrents } = this.state;
 
         return (
             <table className={classes.table}>
@@ -24,36 +57,40 @@ class Component extends React.Component<ITorrentListProps, {}> {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Debian</td>
-                        <td className={classes.alignRight}>1.2 GB</td>
-                        <td className={classes.alignCenter}>Stopped 0.0%</td>
-                        <td className={classes.alignCenter}>0</td>
-                        <td className={classes.alignCenter}>0</td>
-                        <td></td>
-                        <td className={classes.alignCenter}>0/0</td>
-                    </tr>
-                    <tr>
-                        <td>Ubuntu</td>
-                        <td className={classes.alignRight}>800 MB</td>
-                        <td className={classes.alignCenter}>Stopped 0.0%</td>
-                        <td className={classes.alignCenter}>0</td>
-                        <td className={classes.alignCenter}>0</td>
-                        <td></td>
-                        <td className={classes.alignCenter}>0/0</td>
-                    </tr>
-                    <tr>
-                        <td>Fedora</td>
-                        <td className={classes.alignRight}>1.5 GB</td>
-                        <td className={classes.alignCenter}>Stopped 0.0%</td>
-                        <td className={classes.alignCenter}>0</td>
-                        <td className={classes.alignCenter}>0</td>
-                        <td></td>
-                        <td className={classes.alignCenter}>0/0</td>
-                    </tr>
+                    {torrents.map((torrent, i) => (
+                        <tr key={i}>
+                            <td>{torrent.name}</td>
+                            <td className={classes.alignRight}>{torrent.size}</td>
+                            <td className={classes.alignCenter}>
+                                {torrent.status} {torrent.progress.toFixed(1)}%
+                            </td>
+                            <td className={classes.alignCenter}>{torrent.down}</td>
+                            <td className={classes.alignCenter}>{torrent.up}</td>
+                            <td className={classes.alignCenter}>{torrent.eta}</td>
+                            <td className={classes.alignCenter}>{torrent.seeds}/{torrent.peers}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         );
+    }
+
+    private onOpenTorrentSuccess = (event: Event, data: IOpenTorrentSuccessEvent) => {
+        const { torrents } = this.state;
+
+        this.setState({
+            torrents: [...torrents, {
+                name: data.name,
+                size: `${(data.size / (1024 * 1024)).toFixed(2)} MB`,
+                status: "Stopped",
+                progress: 0,
+                down: 0,
+                up: 0,
+                eta: "Never",
+                seeds: 0,
+                peers: 0,
+            }],
+        });
     }
 }
 
